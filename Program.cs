@@ -13,7 +13,7 @@ namespace LookupTheVoc
     // contains credentials
     class Info 
     {
-        public static string key = "***REMOVED***";
+        public static string key = "<key>";
         // https://dictionaryapi.com/api/v3/references/learners/json/<voc>?key=<key>
         public static string hostURL = "https://dictionaryapi.com/api/v3/references/learners/json/"; 
     }
@@ -36,7 +36,7 @@ namespace LookupTheVoc
 
             // construct url 
             // https://dictionaryapi.com/api/v3/references/learners/json/<voc>?key=<key>
-            // https://dictionaryapi.com/api/v3/references/learners/json/test?key=***REMOVED***
+            // https://dictionaryapi.com/api/v3/references/learners/json/test?<key>
             string dicURL = Info.hostURL + voc + "?key=" + Info.key;
 
             // Get Json String from URL
