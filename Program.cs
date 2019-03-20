@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace LookupTheVoc
 {
@@ -30,10 +32,16 @@ namespace LookupTheVoc
 
             // construct url 
             // https://dictionaryapi.com/api/v3/references/learners/json/<voc>?key=<key>
+            // https://dictionaryapi.com/api/v3/references/learners/json/test?key=39c1ff57-b341-4cb3-a10a-183a19c641c3
             string dicURL = Info.hostURL + voc + "?key=" + Info.key;
 
-            var resultString = await client.GetStringAsync(dicURL);
-            return resultString;
+            // Get Json String from URL
+            var vocJString = await client.GetStringAsync(dicURL);
+            
+            // Parse Json string
+            JObject vocJObj = JObject.Parse(vocJString);
+            
+            return vocJString;
         }
     }
 }
