@@ -1,4 +1,5 @@
 ﻿using System;
+using LookupTheVoc;
 // additional package
 using System.Threading.Tasks;
 using System.Net.Http;
@@ -17,32 +18,16 @@ namespace LookupTheVoc
         public static string hostURL = "https://dictionaryapi.com/api/v3/references/learners/json/"; 
     }
 
-    class VocDef
-    {
-        public meta_VocDef meta;
-    }
-
-    class meta_VocDef
-    {
-        public string id;
-        public string uuid;
-        public shortdef_meta_VocDef def;
-    }
-
-    class shortdef_meta_VocDef
-    {
-        public string hw;
-        public IList<string> def;
-    }
-
     class Program
     {
         private static readonly HttpClient client = new HttpClient();
 
         static void Main(string[] args)
         {
-            string voc = Console.ReadLine();
-            Console.WriteLine(lookup(voc).Result);
+            string vocToLook = Console.ReadLine();
+            string vocJStirng = lookup(vocToLook).Result;
+            var primary = parseJson(vocJStirng);
+            printResult(primary);
         }
 
         private static async Task<string> lookup(string voc)
@@ -56,16 +41,25 @@ namespace LookupTheVoc
 
             // Get Json String from URL
             var vocJString = await client.GetStringAsync(dicURL);
-            
-            // Parse Json string
-            var resultList = JsonConvert.DeserializeObject<List<VocDef>>(vocJString);
-
-            foreach (VocDef vocdef in resultList)
-            {
-                Console.WriteLine("id: {0}", vocdef.meta.id);
-            }
-
             return vocJString;
+        }
+
+        private static VocDef parseJson(string Jstring)
+        {
+            // Parse Json string
+            var resultList = JsonConvert.DeserializeObject<List<VocDef>>(Jstring);
+
+            return resultList[0];
+        }
+
+        private static void printResult(VocDef voc)
+        {
+            int count = 1;
+            Console.WriteLine($"id: {voc.meta.id}");
+            foreach (string def in voc.meta.app_shortdef.def)
+            {
+                Console.WriteLine($"def {count++}: {def}");
+            }
         }
     }
 }
