@@ -16,6 +16,25 @@ namespace LookupTheVoc
         // https://dictionaryapi.com/api/v3/references/learners/json/<voc>?key=<key>
         public static string hostURL = "https://dictionaryapi.com/api/v3/references/learners/json/"; 
     }
+
+    class VocDef
+    {
+        public meta_VocDef meta;
+    }
+
+    class meta_VocDef
+    {
+        public string id;
+        public string uuid;
+        public shortdef_meta_VocDef def;
+    }
+
+    class shortdef_meta_VocDef
+    {
+        public string hw;
+        public IList<string> def;
+    }
+
     class Program
     {
         private static readonly HttpClient client = new HttpClient();
@@ -39,8 +58,13 @@ namespace LookupTheVoc
             var vocJString = await client.GetStringAsync(dicURL);
             
             // Parse Json string
-            JObject vocJObj = JObject.Parse(vocJString);
-            
+            var resultList = JsonConvert.DeserializeObject<List<VocDef>>(vocJString);
+
+            foreach (VocDef vocdef in resultList)
+            {
+                Console.WriteLine("id: {0}", vocdef.meta.id);
+            }
+
             return vocJString;
         }
     }
