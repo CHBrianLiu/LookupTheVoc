@@ -1,4 +1,8 @@
 /bin/*
 /obj/*
+<<<<<<< HEAD
 test.json
 *.cache
+=======
+test.json
+>>>>>>> newtonsoft
