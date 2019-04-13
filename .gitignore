@@ -2,6 +2,5 @@ bin/*
 obj/*
 test.json
 *.cache
-PythonApp/credentials.py
 PythonApp/__pycache__/*
 PythonApp/Hit Refresh.txt
