@@ -27,8 +27,8 @@ wordLast
    Enter the file contains vocabularies: book1.txt
    ```
    > Be aware that you should put the file in the same directory or provide absolute path.
-   1. Wait until program terminated.
-   2. Open the file starting with *DefAdded_* to check result.
+   2. Wait until program terminated.
+   3. Open the file starting with *DefAdded_* to check result.
 4. Or you can use command line argument to address your file. like below example.
    ```bash
    python3 Main.py book1.txt book2.txt
