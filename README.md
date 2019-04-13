@@ -1,9 +1,11 @@
-# Introduction 
-# Summary
-# Requirement
+This repository is under MIT License. Details of the license please refer to the last section of this file.
+# Auto-lookup Program with Marriam-Webster Learner's Dictionary
+## Introduction 
+## Summary
+## Requirement
 1. [Python 3](https://www.python.org)
 2. [Merriam-Webster Learner's Dictionary API Key](https://dictionaryapi.com)
-# Input file format
+## Input file format
 I use [kindle mate](https://kmate.me) as a tool to export my vocabulary builder data from my kindle paperwhite. The exported file has format like below. You don't have to use the same tool as me, but make sure you follow this format.
 ```
 wordA
@@ -12,7 +14,7 @@ wordC
 ...
 wordLast
 ```
-# How to use
+## How to use
 1. Replace your key in credentials.py file.
    ```python
    key = 'input-your-key-here'
@@ -33,7 +35,7 @@ wordLast
    ```bash
    python3 Main.py book1.txt book2.txt
    ```
-# Known issue
+## Known issue
 1. Some past-tense vocabularies couldn't be found.
 # License
 MIT License
