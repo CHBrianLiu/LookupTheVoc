@@ -1,4 +1,5 @@
 # Import libraries
+import sys
 import json
 import urllib.request
 
@@ -8,6 +9,10 @@ import credentials
 # Variables
 requestURL = 'https://dictionaryapi.com/api/v3/references/learners/json/'
 myKey = credentials.credentials.key
+
+# Files List
+ReadFiles = []
+WriteFiles = []
 
 # Classes definition
 class VocDef:
@@ -31,10 +36,32 @@ def ParseResultString(resultString):
     return result
 
 if __name__ == "__main__":
-    voc = input('Enter what you want to look up: ')
-    defString = getDef(voc)
-    DefObj = ParseResultString(defString)
-    print(DefObj.Term)
-    print(DefObj.FuncLabel)
-    for shdef in DefObj.ShortDef:
-        print(shdef)
+    if (len(sys.argv) <= 1):
+        fileToRead = input('Enter the file contains vocabularies: ')
+        # Handle the input.
+    else:
+        for file in sys.argv:
+            if (file != sys.argv[0]):
+                # open file
+                try:
+                    ReadFiles.append(open(file, "r"))
+                except:
+                    print(file + ' file does not exist.')
+                    exit()
+                else:
+                    print('Read file successfully. Creating file to store searching results...')
+                # create file
+                try:
+                    WriteFiles.append(open('DefAdded_' + file, "w"))
+                except: 
+                    print("Couldn't create file.")
+                    exit()
+                else:
+                    print('Create file successfully. Working on searching...')
+    # voc = input('Enter what you want to look up: ')
+    # defString = getDef(voc)
+    # DefObj = ParseResultString(defString)
+    # print(DefObj.Term)
+    # print(DefObj.FuncLabel)
+    # for shdef in DefObj.ShortDef:
+    #     print(shdef)
