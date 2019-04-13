@@ -1,17 +1,40 @@
-# Introduction
-As a non-native English learner, I love using some app to help me remember the vocabularies. However, most of built-in english dictionary is not suitable for learner. So that I have to import my own word cards with specific definition. I write this app to automatically look up the vocabularies using Merriam-Webster Learners' Dictionary. 
-
-# Requirements 
-1. [.NET Core](https://dotnet.microsoft.com/download)
-2. [Meriam-Webster API Key](https://dictionaryapi.com/products/api-learners-dictionary)
-
-# Run the program
-**TO BE CONTINUED**
-
-# To-do List
-1. Config file
-2. Fit for **Quizlet** app
-
+# Introduction 
+# Summary
+# Requirement
+1. [Python 3](https://www.python.org)
+2. [Merriam-Webster Learner's Dictionary API Key](https://dictionaryapi.com)
+# Input file format
+I use [kindle mate](https://kmate.me) as a tool to export my vocabulary builder data from my kindle paperwhite. The exported file has format like below. You don't have to use the same tool as me, but make sure you follow this format.
+```
+wordA
+wordB
+wordC
+...
+wordLast
+```
+# How to use
+1. Replace your key in credentials.py file.
+   ```python
+   key = 'input-your-key-here'
+   ``` 
+2. In terminal, change directory to this repository directory.
+3. Use ```python3``` to run the program.
+   ```bash
+   python3 Main.py
+   ```
+   1. Provide the file that contains vocabulary you want to look up.
+   ```
+   Enter the file contains vocabularies: book1.txt
+   ```
+   > Be aware that you should put the file in the same directory or provide absolute path.
+   1. Wait until program terminated.
+   2. Open the file starting with *DefAdded_* to check result.
+4. Or you can use command line argument to address your file. like below example.
+   ```bash
+   python3 Main.py book1.txt book2.txt
+   ```
+# Known issue
+1. Some past-tense vocabularies couldn't be found.
 # License
 MIT License
 
