@@ -1,6 +1,2 @@
-bin/*
-obj/*
 test.json
-*.cache
-PythonApp/__pycache__/*
-PythonApp/Hit Refresh.txt
+__pycache__/*
