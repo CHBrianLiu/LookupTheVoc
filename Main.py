@@ -84,9 +84,10 @@ if __name__ == "__main__":
             DefItem = getDef(line.rstrip())
             if (DefItem != -1):
                 try:
-                    LineToWrite = DefItem.Term + "\t" + DefItem.FuncLabel + "\t"
+                    LineToWrite = DefItem.Term + "\t" + DefItem.FuncLabel + "\n"
                     for idx, ShDef in enumerate(DefItem.ShortDef):
-                        LineToWrite += "def " + str(idx+1) + ": " + ShDef + "\t" 
+                        LineToWrite += "def " + str(idx+1) + ": " + ShDef + "\n"
+                    LineToWrite += ';' 
                 except: 
                     print('Concatenation error.')
                     continue
