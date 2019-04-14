@@ -14,6 +14,13 @@ wordC
 ...
 wordLast
 ```
+## Output file format
+The program will read each line in input file then look up the vocabulary and output with following format:
+```
+Word1 FunctionLabel  Def1  Def2  ...
+Word2 FunctionLabel  Def1  Def2  ...
+```
+> Noted that each element is seperated by a tab character (\t).
 ## How to use
 1. Replace your key in credentials.py file.
    ```python
