@@ -1,5 +1,5 @@
 This repository is under MIT License. Details of the license please refer to the last section of this file.
-# Auto-lookup Program with Marriam-Webster Learner's Dictionary
+# Vocabulary Auto-Lookup Program with Marriam-Webster Learner's Dictionary
 ## Introduction 
 If you love to memorize vocabulary with flashcard app, just like me, this program may help you to create the useful flashcards. You may notice the auto-generated definitions from the app are unfriendly to non-native learner. In contrast, I feel good with Marriam-Webster Learner's Dictionary which I think is one of the best dictionary for English learners. As this reason, I wrote this program to help myself create flashcards with good definitions effortlessly.
 
