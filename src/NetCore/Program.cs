@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace LookupVoc
 {
@@ -48,10 +49,18 @@ namespace LookupVoc
                 var vocs = File.ReadAllLines(file);
                 // loop the list
                 foreach (string voc in vocs) {
-                    LookupVoc.Definition def = new LookupVoc.Definition();
                     // look up the vocabulary and process the result
-
+                    HttpClient client = new HttpClient();
+                    string url = "https://www.dictionaryapi.com/api/v3/references/learners/json/" + voc + "?key=" + profileObj.getKey;
+                    try {
+                        var response = client.GetStringAsync(url);
+                        response.Wait();
+                    } catch {
+                        Console.WriteLine(voc + " not found.");
+                    }
+                    LookupVoc.Definition def = JsonConvert.DeserializeObject<LookupVoc.Definition>(response.Result);
                     // process the output format and save in file
+                    
                 }
             }
 
