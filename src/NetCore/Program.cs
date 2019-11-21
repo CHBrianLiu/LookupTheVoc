@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
 namespace LookupVoc
@@ -45,45 +46,36 @@ namespace LookupVoc
                     Console.WriteLine(file + " not found.");
                     continue;
                 }
+                string filePath = file;
                 // read all text from the file and store in a list
-                var vocs = File.ReadAllLines(file);
+                /*
+                DEBUG: Check filePath variable 
+                */
+                var vocs = File.ReadAllLines(filePath);
                 // loop the list
                 foreach (string voc in vocs) {
                     // look up the vocabulary and process the result
                     HttpClient client = new HttpClient();
-                    string url = "https://www.dictionaryapi.com/api/v3/references/learners/json/" + voc + "?key=" + profileObj.getKey;
-                    try {
-                        var response = client.GetStringAsync(url);
-                        response.Wait();
-                    } catch {
-                        Console.WriteLine(voc + " not found.");
-                    }
-                    LookupVoc.Definition def = JsonConvert.DeserializeObject<LookupVoc.Definition>(response.Result);
-                    // process the output format and save in file
+                    string url = "https://www.dictionaryapi.com/api/v3/references/learners/json/" + voc + "?key=" + profileObj.getKey();
+                    Task<string> response = client.GetStringAsync(url);
+                    response.Wait();
+                    var parsedResult = JArray.Parse(response.Result);
+                    LookupVoc.Definition def = new LookupVoc.Definition(parsedResult[0]["meta"]["id"].ToString(), parsedResult[0]["fl"].ToString(), parsedResult[0]["shortdef"]);
                     
+                    // process the output format and save in file
+                    /*
+                    DEBUG: check exportFilePath variable
+                    */
+                    string exportFilePath = "edited_" + file;
+                    using (StreamWriter outputFile = new StreamWriter(exportFilePath)) {
+                        outputFile.WriteLine($"{def.id}\t{def.functionalLabel}");
+                        foreach(string shortdef in def.shortDef) {
+                            outputFile.WriteLine(shortdef);
+                        }
+                        outputFile.WriteLine(",");
+                    }
                 }
             }
-
         }
-    
-        // static public bool lookup (string key, string keyword) {
-        //     string url = "https://www.dictionaryapi.com/api/v3/references/learners/json/" + keyword + "?key=" + key;
-        //     HttpClient client = new HttpClient();
-        //     Task<string> response;
-        //     try {
-        //         response = client.GetStringAsync(url);
-        //         response.Wait();
-        //     } catch {
-        //         return false;
-        //     }
-        //     parse(response.Result);
-        //     return true;
-        // }
-        // static private void parse(string jsonStr) {
-        //     var result = JsonConvert.DeserializeObject<Definition>(jsonStr);
-        //     this.id = result.id;
-        //     this.functionalLabel = result.functionalLabel;
-        //     this.shortDef = result.shortDef;
-        // }
     }
 }
